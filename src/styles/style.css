@@ -1327,3 +1327,83 @@ h1,h2,h3,h4,h5,h6,p{margin:0}
 /* affiches promo dans le blog : format 4:5 respecté, jamais recadré */
 .blog-grid .blog-card__img--contain{aspect-ratio:4/5;background:#0d0d0d}
 .blog-card__img--contain img{object-fit:contain}
+
+/* ============================================================
+   23. MOBILE — le même parcours, au pouce
+   Mesuré sur 375x812 avant correction : le hero débordait de
+   126 px sous la ligne de flottaison, le planning empilait
+   2 834 px de colonnes, les cartes promo tombaient à 160 px de
+   large et les liens du menu à 24 px de haut.
+   Ce bloc est le dernier du fichier : il gagne sans !important.
+   ============================================================ */
+@media (max-width:809px){
+  :root{--pad-y:64px}
+
+  /* ---- hero : tout tient dans l'écran, bouton compris ---- */
+  .hero-ef{
+    padding:74px 20px calc(16px + env(safe-area-inset-bottom));
+    gap:12px;
+  }
+  .hero-ef h1{font-size:min(11.5vw,8.6vh)}
+  .hero-ef__foot{gap:12px}
+  .hero-ef__tag{font-size:min(5.2vw,3.2vh);max-width:100%}
+  .hero-ef__aside{gap:12px}
+  .hero-ef__aside p{font-size:13px;line-height:1.32;max-width:36ch}
+  .btn-ef{height:46px}
+  /* le personnage n'impose plus sa hauteur : base 0, il prend ce qui
+     reste une fois le titre et le pied posés — sinon le hero grandit
+     au-delà de l'écran (889 px mesurés pour 812 disponibles) */
+  .hero-ef__stage{flex:1 1 0;min-height:0}
+  .hero-ef__person{min-height:0}
+  .hero-ef__person img{height:100%;max-height:100%;object-fit:contain}
+
+  /* ---- promo : on fait défiler cinq cartes lisibles plutôt
+     que d'en écraser cinq sur 375 px ---- */
+  .promo-grid{
+    display:flex;gap:14px;align-items:stretch;
+    overflow-x:auto;scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none;
+    margin-inline:calc(var(--pad-x) * -1);
+    padding:2px var(--pad-x) 8px;
+  }
+  .promo-grid::-webkit-scrollbar{display:none}
+  /* plafonné : à 375 px on voit une carte, sur une tablette étroite
+     on en voit deux — jamais une carte de 600 px de large */
+  .promo-card{flex:0 0 min(78vw,300px);scroll-snap-align:center}
+
+  /* ---- planning : un jour par écran, on balaie ---- */
+  .planning__grid{
+    display:flex;gap:12px;background:none;border:0;overflow:visible;
+    overflow-x:auto;scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none;
+    margin-inline:calc(var(--pad-x) * -1);
+    padding:2px var(--pad-x) 8px;
+  }
+  .planning__grid::-webkit-scrollbar{display:none}
+  .planning__day{
+    flex:0 0 min(72vw,260px);scroll-snap-align:center;
+    border:1px solid rgba(255,255,255,.12);border-radius:var(--r-card);
+  }
+
+  /* ---- galerie : six photos suffisent sur un téléphone ---- */
+  .gallery__item:nth-child(n+7){display:none}
+
+  /* ---- cibles tactiles : 44 px de haut minimum ---- */
+  .m-link,
+  .menu-social a,
+  .footer-col a,
+  .footer-links a,
+  .quickinfo a,
+  .info-item a{min-height:44px;display:inline-flex;align-items:center}
+
+  /* ---- plus rien sous 12 px ---- */
+  .slot__coach,
+  .promo-card__badge,
+  .promo-card__tag,
+  .blog-meta,
+  .footer-base,
+  .footer-col__title{font-size:12px}
+
+  /* ---- WhatsApp : au-dessus de la barre système ---- */
+  .wa-fab{right:16px;bottom:calc(16px + env(safe-area-inset-bottom))}
+}
