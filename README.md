@@ -205,7 +205,5 @@ Aucune configuration : tout se déduit de `SCHEDULE` et de l'heure du visiteur.
 
 ## À faire avant mise en ligne
 
-- **Photo du hero** : encore la photo du template Elite Fitness. À remplacer
-  par une photo du club.
 - **Formulaires** : démos front, à brancher sur un service d'envoi. Le CTA
   WhatsApp, lui, est déjà fonctionnel.

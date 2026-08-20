@@ -37,7 +37,7 @@ export function HeroElite() {
       <motion.div className="hero-ef__bg" style={par({ y: skyY })}>
         <motion.img
           className="hero-ef__sky"
-          src={asset('llxDcoalYlUiQXnDCG1tXEzdOM.webp')}
+          src={bf('hero-neon.webp')}
           alt=""
           initial={still ? { opacity: 0 } : { opacity: 0, filter: 'blur(16px)' }}
           animate={{ opacity: 1, filter: 'blur(0px)' }}
