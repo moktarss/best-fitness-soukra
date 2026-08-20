@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { asset, bf, src, ICONS, SERVICES, PROGRAMS, PRICES, FAQ } from '../data/content.js';
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
@@ -13,6 +13,24 @@ export function Bq({ children, className = '', ...rest }) {
   );
 }
 
+/* Le personnage détouré n'est monté que sur téléphone : sur grand écran
+   la photo de la salle porte seule le hero, et ses 108 Ko ne sont même
+   pas téléchargés. La requête média est la même que celle du CSS. */
+function usePhone() {
+  const query = '(max-width:809px)';
+  const [phone, setPhone] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia(query).matches
+  );
+  useEffect(() => {
+    const mq = window.matchMedia(query);
+    const onChange = (e) => setPhone(e.matches);
+    setPhone(mq.matches);
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  }, []);
+  return phone;
+}
+
 /* ---------------- Hero « Elite Fitness » -------------------------------------
    Animation d'ouverture en calques, puis parallaxe au défilement :
    le ciel se dévoile et dérive lentement, le lettrage monte mot par mot
@@ -21,6 +39,7 @@ export function Bq({ children, className = '', ...rest }) {
 export function HeroElite() {
   const ref = useRef(null);
   const still = useReducedMotion();
+  const phone = usePhone();
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
 
   /* les calques ne défilent pas à la même vitesse : c'est ce décalage qui
@@ -45,17 +64,19 @@ export function HeroElite() {
         />
       </motion.div>
 
-      <div className="hero-ef__stage">
-        <motion.div className="hero-ef__person" style={par({ y: personY })}>
-          <motion.img
-            src={asset('Rw9riErv2ZEQVqFVpx9oBGodl6E.webp')}
-            alt=""
-            initial={still ? { opacity: 0 } : { opacity: 0, y: 80, scale: 1.07 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: still ? 0.4 : 1.4, ease: EASE, delay: still ? 0 : 0.3 }}
-          />
-        </motion.div>
-      </div>
+      {phone && (
+        <div className="hero-ef__stage">
+          <motion.div className="hero-ef__person" style={par({ y: personY })}>
+            <motion.img
+              src={asset('Rw9riErv2ZEQVqFVpx9oBGodl6E.webp')}
+              alt=""
+              initial={still ? { opacity: 0 } : { opacity: 0, y: 80, scale: 1.07 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: still ? 0.4 : 1.4, ease: EASE, delay: still ? 0 : 0.3 }}
+            />
+          </motion.div>
+        </div>
+      )}
 
       <motion.div className="hero-ef__title" style={par({ y: titleY })}>
         <h1>
