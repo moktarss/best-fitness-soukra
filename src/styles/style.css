@@ -89,7 +89,7 @@ h1,h2,h3,h4,h5,h6,p{margin:0}
 .star-inline{
   display:inline-block;vertical-align:-.08em;
   width:.62em;height:.62em;margin:0 .06em;
-  animation:spin 16s linear infinite;
+  animation:spin 48s linear infinite;
 }
 .star-inline--lg{width:.9em;height:.9em;vertical-align:-.15em;margin-left:.1em}
 /* quand l'étoile porte une parallaxe, la rotation laisse la place au scroll-scrub */
@@ -311,7 +311,7 @@ h1,h2,h3,h4,h5,h6,p{margin:0}
 .hero .bq{color:var(--white);max-width:390px}
 .star{
   position:absolute;width:110px;height:110px;pointer-events:none;
-  animation:spin 14s linear infinite;
+  animation:spin 44s linear infinite;
 }
 @keyframes spin{to{transform:rotate(360deg)}}
 .hero__title .star{right:-70px;bottom:6px}
@@ -701,9 +701,9 @@ h1,h2,h3,h4,h5,h6,p{margin:0}
 .marquee{
   background:var(--white);padding:50px 0;overflow:hidden;position:relative;
 }
-.marquee__track{display:flex;align-items:center;gap:40px;width:max-content;animation:marquee-x 48s linear infinite}
+.marquee__track{display:flex;align-items:center;gap:40px;width:max-content;animation:marquee-x 96s linear infinite}
 /* vitesse constante quel que soit le nombre de copies (voir <Marquee>) */
-.marquee__track{animation-duration:calc(48s * var(--mq-copies,2) / 2);will-change:transform;backface-visibility:hidden}
+.marquee__track{animation-duration:calc(96s * var(--mq-copies,2) / 2);will-change:transform;backface-visibility:hidden}
 .marquee__track span{
   font-family:var(--font-title);font-size:72px;line-height:1;
   text-transform:uppercase;color:var(--dark);white-space:nowrap;
@@ -827,9 +827,9 @@ h1,h2,h3,h4,h5,h6,p{margin:0}
 .rating .dots i{width:9px;height:9px;border-radius:50%;background:var(--accent);display:block}
 
 /* récompenses (marquee) */
-.award-track{display:flex;gap:20px;width:max-content;animation:marquee-x 40s linear infinite}
+.award-track{display:flex;gap:20px;width:max-content;animation:marquee-x 76s linear infinite}
 /* vitesse constante quel que soit le nombre de copies (voir <Marquee>) */
-.award-track{animation-duration:calc(40s * var(--mq-copies,2) / 2);will-change:transform;backface-visibility:hidden}
+.award-track{animation-duration:calc(76s * var(--mq-copies,2) / 2);will-change:transform;backface-visibility:hidden}
 .award{
   display:flex;align-items:center;gap:18px;flex:none;
   width:420px;padding:24px 26px;
@@ -1269,9 +1269,9 @@ h1,h2,h3,h4,h5,h6,p{margin:0}
   padding:14px 0;margin-bottom:70px;
   overflow:hidden;position:relative;z-index:2;
 }
-.promo-band__track{display:flex;align-items:center;gap:40px;width:max-content;animation:marquee-x 30s linear infinite}
+.promo-band__track{display:flex;align-items:center;gap:40px;width:max-content;animation:marquee-x 60s linear infinite}
 /* vitesse constante quel que soit le nombre de copies (voir <Marquee>) */
-.promo-band__track{animation-duration:calc(30s * var(--mq-copies,2) / 2);will-change:transform;backface-visibility:hidden}
+.promo-band__track{animation-duration:calc(60s * var(--mq-copies,2) / 2);will-change:transform;backface-visibility:hidden}
 .promo-band__tag,.promo-band__ar{
   font-family:var(--font-title);font-weight:400;font-size:24px;line-height:1.2;
   letter-spacing:.04em;text-transform:uppercase;color:var(--dark);white-space:nowrap;
