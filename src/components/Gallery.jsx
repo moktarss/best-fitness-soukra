@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { bf } from '../data/content.js';
 import { Reveal, Stagger, Scrub } from './motion.jsx';
 
@@ -19,10 +20,29 @@ export const SHOTS = [
 ];
 
 export function Gallery({ items = SHOTS }) {
+  /* -1 : toutes les photos sont éclairées. Au clic, celle qu'on choisit
+     reste nette et les autres passent dans l'ombre ; second clic, on sort. */
+  const [focus, setFocus] = useState(-1);
+
   return (
-    <Stagger className="gallery" step={0.07} amount={0.05}>
-      {items.map((s) => (
-        <Reveal key={s.file} kind="up" inStagger className={`gallery__item gallery__item--${s.span}`}>
+    <Stagger className={'gallery' + (focus >= 0 ? ' gallery--focus' : '')} step={0.07} amount={0.05}>
+      {items.map((s, i) => (
+        <Reveal
+          key={s.file}
+          kind="up"
+          inStagger
+          className={`gallery__item gallery__item--${s.span}` + (focus === i ? ' is-active' : '')}
+          role="button"
+          tabIndex={0}
+          aria-pressed={focus === i}
+          onClick={() => setFocus(focus === i ? -1 : i)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              setFocus(focus === i ? -1 : i);
+            }
+          }}
+        >
           <Scrub as="img" s={1.12} src={bf(s.file)} alt={s.alt} loading="lazy" />
         </Reveal>
       ))}

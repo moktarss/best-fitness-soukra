@@ -159,24 +159,25 @@ export function About() {
         <Ghost>{'WHERE YOU START YOUR\nFITNESS JOURNEY'}</Ghost>
 
         <div className="container stack g50">
-          <SplitTitle
-            className="d2 t-1000"
-            parts={[
-              { text: 'Le club' },
-              { img: ICONS.starWhite, imgClass: 'star-inline star-inline--lg' },
-            ]}
-          />
-
-          <div className="offset-col">
-            <SplitText className="bq" style={{ color: '#fff' }}>
+          {/* le titre et l'accroche partagent la ligne ; le bouton passe dessous */}
+          <div className="lead-row">
+            <SplitTitle
+              className="d2 t-1000"
+              parts={[
+                { text: 'Le club' },
+                { img: ICONS.starWhite, imgClass: 'star-inline star-inline--lg' },
+              ]}
+            />
+            <SplitText className="bq lead-row__text" style={{ color: '#fff' }}>
               Best Fitness {BRAND.city} : une salle où l'on vient pour
               progresser, pas pour se comparer. Cours collectifs toute la semaine, coachs présents,
               matériel BH Fitness et programmes Les Mills
             </SplitText>
-            <Reveal kind="up-sm">
-              <Btn to="/contact" label="Venir essayer" />
-            </Reveal>
           </div>
+
+          <Reveal kind="up-sm">
+            <Btn to="/contact" label="Venir essayer" />
+          </Reveal>
 
           <Reveal
             kind="img"

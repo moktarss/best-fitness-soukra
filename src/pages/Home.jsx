@@ -201,17 +201,16 @@ LA SOUKRA`}</Ghost>
       </section>
 
       {/* ---------- Tarifs ---------- */}
-      <section className="section section--light">
+      <section className="section section--dark">
+        <Rip side="top" />
         <div className="grid-lines" />
-        <Ghost kind="ghost-up" className="ghost-text--light ghost-text--bottom">
+        <Ghost kind="ghost-up" className="ghost-text--bottom">
           {'BEST FITNESS\nLA SOUKRA'}
         </Ghost>
 
         <div className="container stack g50">
-          <div className="price-head">
-            <Reveal kind="img" className="price-head__img">
-              <img src={bf('coach-oussema.webp')} alt="" />
-            </Reveal>
+          {/* sans affiche, le titre tient le centre */}
+          <div className="price-head price-head--center">
             <SplitTitle
               className="d2"
               parts={[
