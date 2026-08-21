@@ -1,8 +1,8 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { asset, bf, src, ICONS, SERVICES, PROGRAMS, PRICES, FAQ } from '../data/content.js';
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
-import { Reveal, Stagger, Scrub, MaskWord, riseIn, EASE } from './motion.jsx';
+import { Reveal, Stagger, Scrub, MaskWord, riseIn, usePhone, EASE } from './motion.jsx';
 
 /* Paragraphe courant des cartes */
 export function Bq({ children, className = '', ...rest }) {
@@ -15,21 +15,7 @@ export function Bq({ children, className = '', ...rest }) {
 
 /* Le personnage détouré n'est monté que sur téléphone : sur grand écran
    la photo de la salle porte seule le hero, et ses 108 Ko ne sont même
-   pas téléchargés. La requête média est la même que celle du CSS. */
-function usePhone() {
-  const query = '(max-width:809px)';
-  const [phone, setPhone] = useState(
-    () => typeof window !== 'undefined' && window.matchMedia(query).matches
-  );
-  useEffect(() => {
-    const mq = window.matchMedia(query);
-    const onChange = (e) => setPhone(e.matches);
-    setPhone(mq.matches);
-    mq.addEventListener('change', onChange);
-    return () => mq.removeEventListener('change', onChange);
-  }, []);
-  return phone;
-}
+   pas téléchargés (usePhone vit dans motion.jsx, au même seuil que le CSS). */
 
 /* ---------------- Hero « Elite Fitness » -------------------------------------
    Animation d'ouverture en calques, puis parallaxe au défilement :

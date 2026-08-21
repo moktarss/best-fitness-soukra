@@ -40,7 +40,7 @@
   --r-card:12px;
   --r-img:12px;
   --r-pill:50px;
-  --rip-h:30px;   /* épaisseur de la déchirure entre deux blocs */
+  --rip-h:110px;  /* épaisseur du papier déchiré entre deux blocs */
 
   --ease:cubic-bezier(.44,0,.06,1);
   --ease-out:cubic-bezier(.16,1,.3,1);
@@ -48,7 +48,7 @@
 
 /* ---------- 2. RESET ---------- */
 *,*::before,*::after{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+html{-webkit-text-size-adjust:100%; scroll-behavior:smooth; overflow-x:clip}
 body{
   margin:0;
   background:var(--white);
@@ -165,9 +165,10 @@ h1,h2,h3,h4,h5,h6,p{margin:0}
 .ghost-text--bottom{top:auto;bottom:40px}
 
 /* bord papier déchiré */
-/* Le papier déchiré ne garde que son bord : entre deux sections sombres,
-   deux bandes de 110 px se rejoignaient et formaient un large aplat blanc.
-   On ne montre plus que la dentelure. */
+/* Papier déchiré entre deux blocs. Hauteur pilotée par --rip-h : réduire
+   cette seule valeur affine la bande, mais il faut alors garder
+   object-fit:fill sur l'image, sinon le recadrage ne laisse voir que les
+   pics les plus hauts de la déchirure. */
 .rip{
   position:absolute;left:0;width:100%;height:var(--rip-h);z-index:5;
   pointer-events:none;line-height:0;overflow:hidden;
@@ -411,7 +412,12 @@ h1,h2,h3,h4,h5,h6,p{margin:0}
   .hero-ef__aside{align-items:flex-start;text-align:left;max-width:100%}
 }
 @media (max-width:809px){
-  :root{--rip-h:20px}
+  /* l'étoile qui tourne est un décor de grand écran : au téléphone elle
+     vient chevaucher le texte */
+  .star{display:none}
+  .footer-grid{gap:28px}
+  .footer-col{gap:12px}
+  .site-footer{padding-bottom:28px}
   .lead-row{flex-direction:column;align-items:flex-start;gap:18px}
   .lead-row__text{padding-bottom:0}
   .hero-ef__line2{flex-direction:column;gap:0;align-items:flex-start}
@@ -573,6 +579,16 @@ h1,h2,h3,h4,h5,h6,p{margin:0}
   transition:background-color .45s var(--ease),border-color .45s var(--ease);
 }
 .tst-card:hover{background:rgba(255,255,255,.075);border-color:rgba(255,255,255,.2)}
+/* au doigt, les avis ne défilent plus tout seuls : on les balaie */
+.tst-row{
+  display:flex;gap:14px;align-items:stretch;
+  overflow-x:auto;scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none;
+  margin-inline:calc(var(--pad-x) * -1);
+  padding:2px var(--pad-x) 8px;
+}
+.tst-row::-webkit-scrollbar{display:none}
+.tst-row .tst-card{flex:0 0 min(84vw,340px);width:auto;scroll-snap-align:center}
 .tst-head{display:flex;align-items:center;gap:16px}
 .tst-head img{width:59px;height:59px;border-radius:50%;object-fit:cover}
 .tst-head h4{
@@ -1422,6 +1438,9 @@ h1,h2,h3,h4,h5,h6,p{margin:0}
     padding:2px var(--pad-x) 8px;
   }
   .promo-grid::-webkit-scrollbar{display:none}
+  .promo-grid,
+  .planning__grid,
+  .tst-row{overscroll-behavior-x:contain}
   /* plafonné : à 375 px on voit une carte, sur une tablette étroite
      on en voit deux — jamais une carte de 600 px de large */
   .promo-card{flex:0 0 min(78vw,300px);scroll-snap-align:center}

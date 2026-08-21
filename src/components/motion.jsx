@@ -150,12 +150,16 @@ export function SplitTitle({ as = 'h2', className, parts = [], step = 0.06, ...r
    C'est le mécanisme du site de référence : useScroll + useTransform,
    progression linéaire branchée sur la position de scroll.
    ------------------------------------------------------------------ */
+/* Sur téléphone la glissée horizontale est annulée : l'élément arrivait
+   décalé hors écran et ne se remettait en place qu'une fois défilé. */
+const ampli = (w) => (w < 810 ? 0 : Math.min(1, w / 1200));
+
 function useAmp() {
   const [amp, setAmp] = useState(() =>
-    typeof window === 'undefined' ? 1 : Math.min(1, window.innerWidth / 1200)
+    typeof window === 'undefined' ? 1 : ampli(window.innerWidth)
   );
   useEffect(() => {
-    const onResize = () => setAmp(Math.min(1, window.innerWidth / 1200));
+    const onResize = () => setAmp(ampli(window.innerWidth));
     window.addEventListener('resize', onResize);
     return () => window.removeEventListener('resize', onResize);
   }, []);
@@ -228,13 +232,35 @@ export function Counter({ value, prefix = '', suffix = '', duration = 1600, clas
 /* ------------------------------------------------------------------
    <Marquee> — défilement infini (contenu dupliqué)
    ------------------------------------------------------------------ */
-export function Marquee({ className = 'marquee__track', children, ...rest }) {
+/* Le défilement infini translate la piste de -50 % : il faut donc que le
+   contenu soit dupliqué ET plus large que deux écrans, sinon un trou
+   traverse la bande à chaque boucle. `repeat` sert à ça sur les bandes
+   au contenu court. */
+export function Marquee({ className = 'marquee__track', repeat = 2, children, ...rest }) {
+  const copies = Array.from({ length: Math.max(2, repeat) });
   return (
     <div className={className} {...rest}>
-      {children}
-      {children}
+      {copies.map((_, i) => (
+        <Fragment key={i}>{children}</Fragment>
+      ))}
     </div>
   );
+}
+
+/* Requête média partagée : le CSS bascule au même seuil (809 px) */
+export function usePhone() {
+  const query = '(max-width:809px)';
+  const [phone, setPhone] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia(query).matches
+  );
+  useEffect(() => {
+    const mq = window.matchMedia(query);
+    const onChange = (e) => setPhone(e.matches);
+    setPhone(mq.matches);
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  }, []);
+  return phone;
 }
 
 /* ------------------------------------------------------------------

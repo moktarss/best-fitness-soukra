@@ -1,5 +1,14 @@
 import { bf, ICONS, SERVICES, STATS, TESTIMONIALS, BRAND } from '../data/content.js';
-import { SplitTitle, SplitText, Reveal, Stagger, Scrub, Counter, Marquee } from '../components/motion.jsx';
+import {
+  SplitTitle,
+  SplitText,
+  Reveal,
+  Stagger,
+  Scrub,
+  Counter,
+  Marquee,
+  usePhone,
+} from '../components/motion.jsx';
 import { Btn, Rip, Ghost, JoinMarquee } from '../components/Layout.jsx';
 import { HeroElite, ServiceGrid, ProgramList, PriceTable } from '../components/blocks.jsx';
 import { Promo } from '../components/Promo.jsx';
@@ -7,6 +16,23 @@ import { Planning } from '../components/Planning.jsx';
 import { Gallery } from '../components/Gallery.jsx';
 
 export default function Home() {
+  /* les avis défilent tout seuls sur grand écran ; au doigt on préfère
+     maîtriser la lecture, donc on passe en carrousel balayable */
+  const phone = usePhone();
+
+  const avis = TESTIMONIALS.map((t) => (
+    <article className="tst-card" key={t.name + t.since}>
+      <div className="tst-head">
+        <img src={t.avatar} alt="" />
+        <div>
+          <h4>{t.name}</h4>
+          <span>{t.since}</span>
+        </div>
+      </div>
+      <p>{t.text}</p>
+    </article>
+  ));
+
   return (
     <>
       <HeroElite />
@@ -180,22 +206,15 @@ LA SOUKRA`}</Ghost>
         <div className="container stack g70">
           <SplitTitle className="d3 accent" parts={[{ text: 'Ils viennent, ils restent' }]} />
 
-          <div className="tst-mask full-bleed">
-            <Marquee className="tst-track">
-              {TESTIMONIALS.map((t) => (
-                <article className="tst-card" key={t.name + t.since}>
-                  <div className="tst-head">
-                    <img src={t.avatar} alt="" />
-                    <div>
-                      <h4>{t.name}</h4>
-                      <span>{t.since}</span>
-                    </div>
-                  </div>
-                  <p>{t.text}</p>
-                </article>
-              ))}
-            </Marquee>
-          </div>
+          {phone ? (
+            <div className="tst-row">{avis}</div>
+          ) : (
+            <div className="tst-mask full-bleed">
+              <Marquee className="tst-track" repeat={4}>
+                {avis}
+              </Marquee>
+            </div>
+          )}
         </div>
         <Rip side="bottom" />
       </section>
