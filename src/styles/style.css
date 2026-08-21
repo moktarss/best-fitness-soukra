@@ -412,6 +412,7 @@ h1,h2,h3,h4,h5,h6,p{margin:0}
   .hero-ef__aside{align-items:flex-start;text-align:left;max-width:100%}
 }
 @media (max-width:809px){
+
   /* la bande de papier gardait ses 110 px sur un écran de 375 : hors de
      proportion. Réduite, elle doit être écrasée et non recadrée, sinon
      seuls les pics de la déchirure restent visibles. */
@@ -1496,4 +1497,18 @@ h1,h2,h3,h4,h5,h6,p{margin:0}
 
   /* ---- WhatsApp : au-dessus de la barre système ---- */
   .wa-fab{right:16px;bottom:calc(16px + env(safe-area-inset-bottom))}
+
+  /* ---- respirations : le rythme vertical était calé sur le grand écran
+     (50 à 70 px entre deux blocs, 60 px entre une photo et son texte).
+     Sur 375 px de large, ça fabriquait des trous. ---- */
+  .g30{gap:18px}
+  .g40{gap:22px}
+  .g50{gap:26px}
+  .g60{gap:28px}
+  .g70{gap:30px}
+  .about-split{gap:24px}
+  .about-split__body{gap:20px}
+  .page-lead{padding-top:104px}
+  .value-card{padding:22px}
+  .kpi{padding-right:0}
 }
