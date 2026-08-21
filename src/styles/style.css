@@ -701,14 +701,16 @@ h1,h2,h3,h4,h5,h6,p{margin:0}
 .marquee{
   background:var(--white);padding:50px 0;overflow:hidden;position:relative;
 }
-.marquee__track{display:flex;align-items:center;gap:40px;width:max-content;animation:marquee-x 26s linear infinite}
+.marquee__track{display:flex;align-items:center;gap:40px;width:max-content;animation:marquee-x 48s linear infinite}
 /* vitesse constante quel que soit le nombre de copies (voir <Marquee>) */
-.marquee__track{animation-duration:calc(26s * var(--mq-copies,2) / 2);will-change:transform;backface-visibility:hidden}
+.marquee__track{animation-duration:calc(48s * var(--mq-copies,2) / 2);will-change:transform;backface-visibility:hidden}
 .marquee__track span{
   font-family:var(--font-title);font-size:72px;line-height:1;
   text-transform:uppercase;color:var(--dark);white-space:nowrap;
 }
 .marquee__track .m-img{width:166px;height:96px;border-radius:60px;overflow:hidden;flex:none}
+/* la bande défile en boucle : on isole son repeint du reste de la page */
+.marquee,.promo-band{contain:paint}
 .marquee__track .m-img img{width:100%;height:100%;object-fit:cover}
 .marquee--dark{background:var(--dark)}
 .marquee--dark .marquee__track span{color:var(--white)}

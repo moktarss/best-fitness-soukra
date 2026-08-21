@@ -16,7 +16,7 @@ export function Promo() {
       <div className="grid-lines" />
 
       <div className="promo-band full-bleed">
-        <Marquee className="promo-band__track" repeat={6}>
+        <Marquee className="promo-band__track">
           <span className="promo-band__tag">Promo Août</span>
           <span className="promo-band__ar" lang="ar" dir="rtl">
             مدّة أطول، ربح أكبر

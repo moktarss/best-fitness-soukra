@@ -210,7 +210,7 @@ LA SOUKRA`}</Ghost>
             <div className="tst-row">{avis}</div>
           ) : (
             <div className="tst-mask full-bleed">
-              <Marquee className="tst-track" repeat={4}>
+              <Marquee className="tst-track">
                 {avis}
               </Marquee>
             </div>

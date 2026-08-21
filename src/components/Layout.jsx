@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { ICONS, NAV, SOCIALS, BRAND, PARTNERS, wa } from '../data/content.js';
+import { bf, ICONS, NAV, SOCIALS, BRAND, PARTNERS, wa } from '../data/content.js';
 import { Marquee, Reveal, Stagger } from './motion.jsx';
 
 /* ---------------- Bouton pilule ---------------- */
@@ -134,18 +134,21 @@ export function Header() {
 export function JoinMarquee({ dark = false }) {
   return (
     <section className={'marquee' + (dark ? ' marquee--dark' : '')}>
+      {/* les vignettes sont exportées à leur taille d'affichage (332x192 pour
+         un rendu 166x96) : la bande défile en continu, une photo de 2048 px
+         redescendue par le navigateur y coûtait cher à chaque image */}
       <Marquee>
         <span>Rejoins-nous</span>
         <div className="m-img">
-          <img src="/assets/img/kOJ7tjAZxMAxUDii1EWnI3FSLU.webp" alt="" />
+          <img src={bf('band-1.webp')} width="332" height="192" alt="" />
         </div>
         <span>Rejoins-nous</span>
         <div className="m-img">
-          <img src="/assets/img/vfap6qYYMnJRrJkr6urIothpgBY.webp" alt="" />
+          <img src={bf('band-2.webp')} width="332" height="192" alt="" />
         </div>
         <span>Rejoins-nous</span>
         <div className="m-img">
-          <img src="/assets/img/kOJ7tjAZxMAxUDii1EWnI3FSLU.webp" alt="" />
+          <img src={bf('band-1.webp')} width="332" height="192" alt="" />
         </div>
       </Marquee>
     </section>

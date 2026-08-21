@@ -263,7 +263,7 @@ export function About() {
             </div>
             <div className="about-split__body">
               <div className="tst-mask">
-                <Marquee className="award-track" repeat={3}>
+                <Marquee className="award-track">
                   {PARTNERSHIPS.map((pa) => (
                     <div className="award" key={pa.name}>
                       <img src={ICONS.award} alt="" />

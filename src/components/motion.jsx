@@ -232,18 +232,40 @@ export function Counter({ value, prefix = '', suffix = '', duration = 1600, clas
 /* ------------------------------------------------------------------
    <Marquee> — défilement infini (contenu dupliqué)
    ------------------------------------------------------------------ */
-/* Le défilement infini translate la piste de -50 % : il faut donc que le
-   contenu soit dupliqué ET plus large que deux écrans, sinon un trou
-   traverse la bande à chaque boucle. `repeat` sert à ça sur les bandes
-   au contenu court. */
-export function Marquee({ className = 'marquee__track', repeat = 2, style, children, ...rest }) {
-  const copies = Array.from({ length: Math.max(2, repeat) });
+/* Défilement infini. La piste est translatée de -50 %, donc de la moitié de
+   ses copies : pour qu'aucun trou ne traverse la bande, cette moitié doit à
+   elle seule couvrir l'écran. Le nombre de copies est donc calculé sur la
+   largeur réelle du contenu — figé à la main, il laissait un trou sur grand
+   écran, ou fabriquait une piste de 5 000 px que le téléphone peinait à
+   animer. Le CSS lit --mq-copies pour allonger la durée d'autant : la
+   vitesse ne dépend jamais du nombre de copies. */
+export function Marquee({ className = 'marquee__track', repeat, style, children, ...rest }) {
+  const ref = useRef(null);
+  const [copies, setCopies] = useState(repeat || 2);
+
+  useEffect(() => {
+    if (repeat) return undefined; // nombre imposé : on ne recalcule pas
+    const el = ref.current;
+    if (!el) return undefined;
+    const ajuste = () => {
+      const jeu = el.scrollWidth / copies; // largeur d'une copie
+      if (!jeu) return;
+      const voulu = Math.min(8, Math.max(2, Math.ceil((2 * window.innerWidth) / jeu)));
+      setCopies((c) => (c === voulu ? c : voulu));
+    };
+    ajuste();
+    window.addEventListener('resize', ajuste);
+    return () => window.removeEventListener('resize', ajuste);
+  }, [copies, repeat]);
+
   return (
-    /* --mq-copies : la translation vaut la moitié de la piste, donc plus il y
-       a de copies, plus la distance est longue. Le CSS allonge la durée
-       dans la même proportion pour garder une vitesse constante. */
-    <div className={className} style={{ '--mq-copies': copies.length, ...style }} {...rest}>
-      {copies.map((_, i) => (
+    <div
+      ref={ref}
+      className={className}
+      style={{ '--mq-copies': copies, ...style }}
+      {...rest}
+    >
+      {Array.from({ length: copies }).map((_, i) => (
         <Fragment key={i}>{children}</Fragment>
       ))}
     </div>
