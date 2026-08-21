@@ -412,6 +412,12 @@ h1,h2,h3,h4,h5,h6,p{margin:0}
   .hero-ef__aside{align-items:flex-start;text-align:left;max-width:100%}
 }
 @media (max-width:809px){
+  /* la bande de papier gardait ses 110 px sur un écran de 375 : hors de
+     proportion. Réduite, elle doit être écrasée et non recadrée, sinon
+     seuls les pics de la déchirure restent visibles. */
+  :root{--rip-h:34px}
+  .rip img{object-fit:fill}
+
   /* l'étoile qui tourne est un décor de grand écran : au téléphone elle
      vient chevaucher le texte */
   .star{display:none}
@@ -563,6 +569,8 @@ h1,h2,h3,h4,h5,h6,p{margin:0}
   display:flex;gap:24px;width:max-content;
   animation:marquee-x 46s linear infinite;
 }
+/* vitesse constante quel que soit le nombre de copies (voir <Marquee>) */
+.tst-track{animation-duration:calc(46s * var(--mq-copies,2) / 2);will-change:transform;backface-visibility:hidden}
 .tst-mask{
   width:100%;max-width:100%;min-width:0;overflow:hidden;
   mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
@@ -694,6 +702,8 @@ h1,h2,h3,h4,h5,h6,p{margin:0}
   background:var(--white);padding:50px 0;overflow:hidden;position:relative;
 }
 .marquee__track{display:flex;align-items:center;gap:40px;width:max-content;animation:marquee-x 26s linear infinite}
+/* vitesse constante quel que soit le nombre de copies (voir <Marquee>) */
+.marquee__track{animation-duration:calc(26s * var(--mq-copies,2) / 2);will-change:transform;backface-visibility:hidden}
 .marquee__track span{
   font-family:var(--font-title);font-size:72px;line-height:1;
   text-transform:uppercase;color:var(--dark);white-space:nowrap;
@@ -816,6 +826,8 @@ h1,h2,h3,h4,h5,h6,p{margin:0}
 
 /* récompenses (marquee) */
 .award-track{display:flex;gap:20px;width:max-content;animation:marquee-x 40s linear infinite}
+/* vitesse constante quel que soit le nombre de copies (voir <Marquee>) */
+.award-track{animation-duration:calc(40s * var(--mq-copies,2) / 2);will-change:transform;backface-visibility:hidden}
 .award{
   display:flex;align-items:center;gap:18px;flex:none;
   width:420px;padding:24px 26px;
@@ -1256,6 +1268,8 @@ h1,h2,h3,h4,h5,h6,p{margin:0}
   overflow:hidden;position:relative;z-index:2;
 }
 .promo-band__track{display:flex;align-items:center;gap:40px;width:max-content;animation:marquee-x 30s linear infinite}
+/* vitesse constante quel que soit le nombre de copies (voir <Marquee>) */
+.promo-band__track{animation-duration:calc(30s * var(--mq-copies,2) / 2);will-change:transform;backface-visibility:hidden}
 .promo-band__tag,.promo-band__ar{
   font-family:var(--font-title);font-weight:400;font-size:24px;line-height:1.2;
   letter-spacing:.04em;text-transform:uppercase;color:var(--dark);white-space:nowrap;

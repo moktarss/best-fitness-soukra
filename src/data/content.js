@@ -56,6 +56,30 @@ export const SOCIALS = [['Instagram', BRAND.instagramUrl]];
 
 export const PARTNERS = ['BH Fitness', 'Les Mills', 'GSN', 'Impact'];
 
+/* Ce que chaque partenaire apporte concrètement au club — page « Le club » */
+export const PARTNERSHIPS = [
+  { name: 'Les Mills', note: 'Bodycombat et Bodypump, programmes et licences officiels' },
+  { name: 'BH Fitness', note: 'Plateau musculation et parc cardio' },
+  { name: 'GSN', note: 'Nutrition sportive et compléments du club' },
+  { name: 'Impact', note: 'Accessoires et petit matériel des cours collectifs' },
+];
+
+/* Les trois principes qui décident du planning et de l'encadrement */
+export const VALUES = [
+  {
+    title: 'Régularité',
+    text: "Mieux vaut trois séances tenues chaque semaine qu'un mois d'intensité suivi de six mois d'absence. Tout le planning est construit là-dessus.",
+  },
+  {
+    title: 'Encadrement',
+    text: "Un coach à chaque cours collectif : il corrige les postures, adapte les mouvements et propose toujours une version allégée. Personne ne s'entraîne seul dans son coin.",
+  },
+  {
+    title: 'Respect',
+    text: "Un créneau 100% femmes tous les midis, du matériel rangé et des coachs qui connaissent ton prénom. On vient ici pour progresser, pas pour se comparer.",
+  },
+];
+
 /* ---------------- Planning des cours collectifs ---------------- */
 export const DAYS = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi'];
 

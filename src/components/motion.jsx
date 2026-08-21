@@ -236,10 +236,13 @@ export function Counter({ value, prefix = '', suffix = '', duration = 1600, clas
    contenu soit dupliqué ET plus large que deux écrans, sinon un trou
    traverse la bande à chaque boucle. `repeat` sert à ça sur les bandes
    au contenu court. */
-export function Marquee({ className = 'marquee__track', repeat = 2, children, ...rest }) {
+export function Marquee({ className = 'marquee__track', repeat = 2, style, children, ...rest }) {
   const copies = Array.from({ length: Math.max(2, repeat) });
   return (
-    <div className={className} {...rest}>
+    /* --mq-copies : la translation vaut la moitié de la piste, donc plus il y
+       a de copies, plus la distance est longue. Le CSS allonge la durée
+       dans la même proportion pour garder une vitesse constante. */
+    <div className={className} style={{ '--mq-copies': copies.length, ...style }} {...rest}>
       {copies.map((_, i) => (
         <Fragment key={i}>{children}</Fragment>
       ))}

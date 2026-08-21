@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { asset, bf, ICONS, SERVICES, COACHES, POSTS, KPIS, BRAND } from '../data/content.js';
+import { asset, bf, ICONS, SERVICES, COACHES, POSTS, KPIS, VALUES, PARTNERSHIPS, BRAND } from '../data/content.js';
 import { SplitTitle, SplitText, Reveal, Stagger, Scrub, Counter, Marquee } from '../components/motion.jsx';
 import { Btn, Rip, Ghost, JoinMarquee } from '../components/Layout.jsx';
 import {
@@ -156,7 +156,7 @@ export function About() {
     <>
       <section className="section section--dark page-lead">
         <div className="grid-lines" />
-        <Ghost>{'WHERE YOU START YOUR\nFITNESS JOURNEY'}</Ghost>
+        <Ghost>{'ICI ON PROGRESSE\nENSEMBLE'}</Ghost>
 
         <div className="container stack g50">
           {/* le titre et l'accroche partagent la ligne ; le bouton passe dessous */}
@@ -184,7 +184,7 @@ export function About() {
             className="tf-wide"
             style={{ aspectRatio: '1639/920', borderRadius: 12, overflow: 'hidden' }}
           >
-            <img src={asset('EUfR46oZ04oHFx9YKnLzkHB7B0.webp')} alt="" />
+            <img src={bf('salle-accueil.webp')} alt="Le comptoir d'accueil du club" />
           </Reveal>
         </div>
 
@@ -196,7 +196,7 @@ export function About() {
         <div className="container">
           <div className="about-split">
             <div className="about-split__media" style={{ aspectRatio: '525/700' }}>
-              <Scrub as="img" s={1.19} y={-50} src={asset('cFqfKDrmCZZ2QByzWHPo7Dzge2U.webp')} alt="" />
+              <Scrub as="img" s={1.19} y={-50} src={bf('salle-allee.webp')} alt="L'allée des machines" />
             </div>
             <div className="about-split__body">
               <SplitTitle
@@ -239,12 +239,12 @@ export function About() {
       <section className="section section--dark">
         <Rip side="top" />
         <div className="grid-lines" />
-        <Ghost kind="ghost-up">{'DEDICATED\nTRAINING TEAM'}</Ghost>
+        <Ghost kind="ghost-up">{'SEPT COACHS\nUN SEUL OBJECTIF'}</Ghost>
 
         <div className="container stack g50">
           <SplitTitle className="d3 accent" parts={[{ text: 'Nos coachs' }]} />
           <Reveal kind="up-sm" as="p" className="label">
-            [ l’équipe ]
+            L’équipe
           </Reveal>
           <TeamGrid items={COACHES.slice(0, 3)} />
           <Reveal kind="up-sm">
@@ -259,19 +259,18 @@ export function About() {
           <SplitTitle className="d3" parts={[{ text: 'Nos partenaires' }]} />
           <div className="about-split">
             <div className="about-split__media" style={{ width: '36%', aspectRatio: '416/560' }}>
-              <Scrub as="img" s={1.19} y={-40} src={asset('CyQsygrXMZmez5n3JCXwJJzXqLY.webp')} alt="" />
+              <Scrub as="img" s={1.19} y={-40} src={bf('salle-plateau-p.webp')} alt="Le plateau musculation" />
             </div>
             <div className="about-split__body">
               <div className="tst-mask">
-                <Marquee className="award-track">
-                  {[1, 2, 3].map((i) => (
-                    <div className="award" key={i}>
+                <Marquee className="award-track" repeat={3}>
+                  {PARTNERSHIPS.map((pa) => (
+                    <div className="award" key={pa.name}>
                       <img src={ICONS.award} alt="" />
                       <div>
-                        <h4>Les Mills · BH Fitness</h4>
-                        <p>Programmes et matériel officiels</p>
+                        <h4>{pa.name}</h4>
+                        <p>{pa.note}</p>
                       </div>
-                      <span>2026</span>
                     </div>
                   ))}
                 </Marquee>
@@ -290,20 +289,17 @@ export function About() {
             parts={[{ text: 'Ce qui nous' }, { text: 'tient à cœur', className: 'dim' }]}
           />
           <Stagger className="value-grid" step={0.1}>
-            {[1, 2, 3].map((i) => (
-              <Reveal key={i} kind="up" inStagger className="value-card">
-                <h3>Régularité</h3>
-                <p>
-                  [ Mieux vaut trois séances tenues chaque semaine qu'un mois d'intensité suivi de
-                  six mois d'absence. Tout le planning est construit là-dessus ]
-                </p>
+            {VALUES.map((v) => (
+              <Reveal key={v.title} kind="up" inStagger className="value-card">
+                <h3>{v.title}</h3>
+                <p>{v.text}</p>
               </Reveal>
             ))}
           </Stagger>
 
           <div className="about-split">
             <div className="about-split__media" style={{ width: '54%', aspectRatio: '713/557' }}>
-              <Scrub as="img" s={1.19} y={-40} src={asset('7hBXVl1vEDAt2uYrc02mQ4ak0pI.webp')} alt="" />
+              <Scrub as="img" s={1.19} y={-40} src={bf('salle-cours.webp')} alt="La salle de cours collectifs" />
             </div>
             <div className="about-split__body">
               <SplitText className="bq">
